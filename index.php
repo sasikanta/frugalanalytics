@@ -99,7 +99,7 @@
 											<input  id="email" name="email"   type="text">
 										</div>
 									</div>
-									<div id="#error" name="error" style="color:#ff0000">ss</div>
+									<div id="#error" name="error" style="color:#ff0000"></div>
 									<p class="terms"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>	
 									</form>
 									<!-- Submit Button -->
@@ -191,7 +191,8 @@
 				<div class="eight columns">
 					<h2>Our current TV Commercial </h2>
 					<div class="flex-video widescreen vimeo">
-					<iframe src="27764822.html" width="400" height="225" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+					
+					<iframe width="400" height="225" src="https://www.youtube.com/embed/qV4Xx5R8cAQ" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>
@@ -262,11 +263,11 @@
   <div id="myModal" class="reveal-modal medium">
 	<h2>Please login to Frugal Analytics</h2>
 	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.</p>
-		<form>
-			<label>Your Username</label><input type="text">
-			<label>Your Password</label><input type="text">
+		<form  method="post" id="login-form"  name="login-form">
+			<label>Your Username</label><input id="login_username" name="login_username" type="text">
+			<label>Your Password</label><input  id="login_password" name="login_password" type="password">
 		</form>								  
-			<p><a href="#" class="radius button small">Log in now</a></p>
+			<p><a href="#" class="radius button small" id="login" name="login">Log in now</a></p>
 			<p>Forgot Password?<a href="#"> Please click here</a></p>
 			<a class="close-reveal-modal">x</a>
 		 </div>
@@ -288,6 +289,39 @@
 			});
 			
  
+ 
+ 
+ 
+ $('#login').click(function() {
+	 // alert(22);
+		 var UserName=$("#login_username").val();
+	    var Password=$("#login_password").val();
+		 
+		 
+   if(UserName=="" || Password=="" ){
+	   alert("Field shouldnot be blank.");
+	 // $("#error").text("Field shouldnot be blank");;
+   }else{
+	  $.ajax({
+           type: "POST",
+           url: "welcome.php",
+           data: $("#login-form").serialize(), 
+           success: function(data)
+           {
+			   //alert(data);
+			   
+               if(data==1){
+			   window.location.href="dashboard.php";
+			   }
+           }
+         });
+		}
+		}
+		);
+ 
+ 
+ 
+ 
   $('#signup').click(function() {
 		 var UserName=$("#username").val();
 	    var Password=$("#password").val();
@@ -303,8 +337,8 @@
            data: $("#register-form").serialize(), 
            success: function(data)
            {
-               alert(data);
-			   window.location.replace("welcome.php");
+               //alert(data);
+			    window.location.href="welcome.php";
            }
          });
 		}
